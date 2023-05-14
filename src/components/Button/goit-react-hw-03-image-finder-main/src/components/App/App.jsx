@@ -3,7 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { fetchData } from 'services/api/pixabayApi';
-import { SearchBar } from 'components/Searchbar/Searchbar';
+import { SearchBar } from 'components/SearchBar/SearchBar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { Button } from 'components/Button/Button';
 import { Modal } from 'components/Modal/Modal';
@@ -122,7 +122,7 @@ export class App extends Component {
           </Modal>
         )}
 
-        <ToastContainer theme="colored" autoClose={2000} />
+        <ToastContainer theme="colored" position="top-right" autoClose={3000} />
       </Container>
     );
   }

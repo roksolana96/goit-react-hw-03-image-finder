@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
-import { MdPageview  } from 'react-icons/md';
+import { MdImageSearch } from 'react-icons/md';
 import {
   SearchHeader,
   SearchForm,
@@ -25,16 +25,16 @@ export class SearchBar extends Component {
   handleSubmit = e => {
     e.preventDefault();
     if (this.state.query.trim() === '') {
-      toast.error('Please specify your query!');
+      toast.warn('Please specify your query!');
       return;
     }
     this.props.onSubmit(this.state.query);
-    // this.reset();
+    this.reset();
   };
 
-  // reset = () => {
-  //   this.setState({ query: '' });
-  // };
+  reset = () => {
+    this.setState({ query: '' });
+  };
 
   render() {
     const { query } = this.state;
@@ -43,7 +43,7 @@ export class SearchBar extends Component {
       <SearchHeader>
         <SearchForm onSubmit={this.handleSubmit}>
           <SearchButton type="submit">
-            <MdPageview  style={{ width: 30, height: 30 }} />
+            <MdImageSearch style={{ width: 30, height: 30 }} />
           </SearchButton>
 
           <SearchFormInput
