@@ -2,6 +2,12 @@ import { Component } from "react";
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import { MdPageview } from 'react-icons/md';
+import {
+  SearchHeader,
+  SearchForm,
+  SearchFormInput,
+  SearchButton,
+} from './SearchBar.styled'
 
 export class Searchbar extends Component {
     static propTypes = {
@@ -11,6 +17,10 @@ export class Searchbar extends Component {
       query: '',
 
     };
+
+handleChange = e => {
+    this.setState({ query: e.currentTarget.value });
+}
 
 handleSubmit = e => {
     e.preventDefault();
@@ -24,9 +34,7 @@ handleSubmit = e => {
     this.props.onSubmit(this.state.query);
     this.reset();
 }
-handleChange = e => {
-    this.setState({ query: e.currentTarget.value.toLowerCase() });
-}
+
 
 reset = () => {
     this.setState({
@@ -36,23 +44,25 @@ reset = () => {
   };
 
 render(){
+  const { query } = this.state;
     return (
-        <header>
-          <form onSubmit={this.handleSubmit}>
-            <button type="submit" >
+        <SearchHeader>
+          <SearchForm  onSubmit={this.handleSubmit}>
+            <SearchButton  type="submit" >
             <MdPageview style={{ width: 30, height: 30 }} />
               {/* <span >Search</span> */}
-            </button>
-            <input
+            </SearchButton >
+            <SearchFormInput
               type="text"
-              autocomplete="off"
-              autofocus
-              placeholder="Search images and photos"
-              value={this.state.query}
+              name="query"
+              value={query}
               onChange={this.handleChange}
+              autoComplete="off"
+              autoFocus
+              placeholder="Search images and photos"
             />
-          </form>
-        </header>
+          </SearchForm >
+        </SearchHeader>
           );
 }
 }

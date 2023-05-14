@@ -1,44 +1,47 @@
 import { createPortal } from 'react-dom';
-import React, { PureComponent } from 'react';
+import { Component } from 'react';
+// import PropTypes from 'prop-types';
 
 import { Overlay, ModalWindow } from './Modal.styled';
+
 const modalRoot = document.querySelector('#modal-root');
 
+export class Modal extends Component  {
+//   static propTypes = {
+//     onClick: PropTypes.func,
+//     onClose: PropTypes.func,
+//     children: PropTypes.node.isRequired,
+//   };
 
+  componentDidMount() {
+    window.addEventListener('keydown', this.closeEscModal);
+  }
 
-export class Modal extends PureComponent {
-    
-    componentDidMount() {
-        window.addEventListener('keydown', this.closeEscModal);
-      }
-    
-      componentWillUnmount() {
-        window.removeEventListener('keydown', this.closeEscModal);
-      }
-    
-      closeEscModal = e => {
-        if (e.code === 'Escape') {
-          this.props.closeModal();
-        }
-      };
-    
-      handleBackDropClick = e => {
-        if (e.currentTarget === e.target) {
-          this.props.closeModal();
-        }
-      };
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.closeEscModal);
+  }
 
-
-    render() {
-        return createPortal(
-            <div>
-            <Overlay onClick={this.handleBackDropClick}>
-              <ModalWindow>
-                <img src={this.props.showModal} alt="" />
-              </ModalWindow>
-            </Overlay>
-          </div>,
-          modalRoot
-        );
-      }
+  closeEscModal = e => {
+    if (e.code === 'Escape') {
+      this.props.closeModal();
     }
+  };
+
+  handleBackDropClick = e => {
+    if (e.currentTarget === e.target) {
+      this.props.closeModal();
+    }
+  };
+
+  render() {
+    return createPortal(
+      <Overlay onClick={this.handleBackdropClick}>
+        <ModalWindow>{this.props.children}</ModalWindow>
+        {/* <button type="button" onClick={this.props.onClose}>
+          <GrClose style={{ width: 30, height: 30 }} />
+        </button> */}
+      </Overlay>,
+      modalRoot
+    );
+  }
+}

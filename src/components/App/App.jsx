@@ -2,13 +2,14 @@ import { Component } from "react";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Container } from "./App.styled";
 
-import { fetchImages } from "./ApiPixabay/Api";
-import { Searchbar } from "./Searchbar/Searchbar";
-import { ImageGallery } from "./ImageGallery/ImageGallery";
-import { Button } from "./Button/Button";
-import { Loader } from "./Loader/Loader";
-import { Modal } from "./Modal/Modal";
+import { fetchImages } from "../ApiPixabay/Api";
+import { Searchbar } from "../Searchbar/Searchbar";
+import { ImageGallery } from "../ImageGallery/ImageGallery";
+import { Button } from "../Button/Button";
+import { Loader } from "../Loader/Loader";
+import { Modal } from "../Modal/Modal";
 
 export class App extends Component {
   state = {
@@ -73,11 +74,20 @@ export class App extends Component {
     .finally(() => this.setState({ isLoading: false }));
   }
 
-  handleFormSubmit = e => {
-    this.setState({ query: e, images: [], page: 1 });
+  // handleFormSubmit = e => {
+  //   this.setState({ query: e, images: [], page: 1 });
   
-  }
-
+  // }
+  handleFormSubmit = query => {
+    if (query === this.state.query) return;
+    this.setState({
+      images: [],
+      query,
+      page: 1,
+      error: null,
+    });
+  };
+  
   onLoadMoreBtn = () => {
     this.setState(({ page }) => ({
       page: page + 1,
@@ -98,25 +108,33 @@ export class App extends Component {
     const loadMoreBtn = loadImages && !isLoading && !isLastPage;
     
     return (
-      <div>
+      <Container>
         <Searchbar onSubmit={this.handleFormSubmit}/>
-
-        {loadImages && (<ImageGallery images={images}
-        onClick={this.toggleModal}/>)}
-        {/* <ImageGallery images={images}/> */}
-        {loadMoreBtn && (
-          <Button text="Load more" clickHandler={this.onLoadMoreBtn} />
-        )}       
 
         {error && toast.error(error.message)}
         {isLoading && <Loader />}
-        {/* {showModal && <Modal/>} */}
-        {showModal && <Modal onClose={this.toggleModal}>
+        
+        {loadImages && (
+          <ImageGallery images={images}
+          onClick={this.toggleModal}/>
+        )}
+
+        {loadMoreBtn && (
+          <Button text="Load more" clickHandler={this.onLoadMoreBtn} />
+        )}       
+{/* {loadMoreBtn && <Button text="Load more" clickHandler={this.onLoadMoreBtn}>Load more</Button>} */}
+
+
+
+
+        {showModal && (
+          <Modal onClose={this.toggleModal}>
             <img src={largeImageURL} alt={tags} />
-          </Modal>}
+          </Modal>
+        )}
         
         <ToastContainer autoClose={3000}/>
-      </div>
+      </Container>
     )
   }
 }

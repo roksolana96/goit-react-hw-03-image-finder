@@ -1,15 +1,18 @@
 import PropTypes from 'prop-types';
+import { LoadMore } from './Button.styled';
 
-export const Button = ({text, clickHandler }) =>{
+
+export const Button = ({children, text, clickHandler }) =>{
     return (
-        <div>
-            <button type="button" onClick={clickHandler}>{text}</button>
-        </div>
+        <LoadMore type="button" onClick={clickHandler}>
+            {text} {children}</LoadMore>
     )
 
 }
 
 Button.propTypes = {
     text: PropTypes.string.isRequired,
+    children: PropTypes.node,
+    onClick: PropTypes.func,
     // showModal: PropTypes.func,
   };
