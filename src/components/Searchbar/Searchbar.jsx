@@ -9,6 +9,7 @@ import {
   SearchButton,
 } from './SearchBar.styled';
 
+
 export class SearchBar extends Component {
   static propTypes = {
     onSubmit: PropTypes.func,

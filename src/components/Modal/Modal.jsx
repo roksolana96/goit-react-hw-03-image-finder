@@ -37,9 +37,6 @@ export class Modal extends Component {
     return createPortal(
       <Overlay onClick={this.handleBackdropClick}>
         <ModalStyled>{this.props.children}</ModalStyled>
-        {/* <button type="button" onClick={this.props.onClose}>
-          <GrClose style={{ width: 30, height: 30 }} />
-        </button> */}
       </Overlay>,
       modalRoot
     );

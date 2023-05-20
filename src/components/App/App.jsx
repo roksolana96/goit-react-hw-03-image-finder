@@ -2,13 +2,15 @@ import { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { fetchData } from 'services/api/pixabayApi';
-import { SearchBar } from 'components/Searchbar/Searchbar';
+import { fetchData } from 'api/pixabayApi';
+import { SearchBar } from 'components/Searchbar/SearchBar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { Button } from 'components/Button/Button';
 import { Modal } from 'components/Modal/Modal';
 import { Loader } from 'components/Loader/Loader';
+
 import { Container } from './App.styled';
+
 
 export class App extends Component {
   state = {
